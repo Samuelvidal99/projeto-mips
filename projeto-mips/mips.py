@@ -139,8 +139,68 @@ def identificadorInst(string):
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print (fn + " $"+ rd + " $"+ rs + " $" + rt) 
-
+            print (fn + " $"+ rd + " $"+ rs + " $" + rt)
+    if fAux.getOpCode(string) == "001111":
+        opCode = mappings[fAux.getOpCode(string)]
+        if opCode == "lui":
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
+            print (opCode + " $"+ rt + offset) 
+    elif fAux.getOpCode(string) == "001000":
+        opCode = mappings[fAux.getOpCode(string)]
+        if opCode == "addi":
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
+            print (opCode + " $"+ rt + " $"+ rs + offset)
+    elif fAux.getOpCode(string) == "001001":
+        opCode = mappings[fAux.getOpCode(string)]
+        if opCode == "addiu":
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
+            print (opCode + " $"+ rt + " $"+ rs + offset)
+    elif fAux.getOpCode(string) == "001010":
+        opCode = mappings[fAux.getOpCode(string)]
+        if opCode == "slti":
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
+            print (opCode + " $"+ rt + " $"+ rs + offset)
+    elif fAux.getOpCode(string) == "001100":
+        opCode = mappings[fAux.getOpCode(string)]
+        if opCode == "andi":
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
+            print (opCode + " $"+ rt + " $"+ rs + offset)
+    elif fAux.getOpCode(string) == "001101":
+        opCode = mappings[fAux.getOpCode(string)]
+        if opCode == "ori":
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
+            print (opCode + " $"+ rt + " $"+ rs + offset)
+    elif fAux.getOpCode(string) == "001110":
+        opCode = mappings[fAux.getOpCode(string)]
+        if opCode == "xori":
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
+            print (opCode + " $"+ rt + " $"+ rs + offset)
+    elif fAux.getOpCode(string) == "000001":
+        opCode = mappings[fAux.getOpCode(string)]
+        if opCode == "bltz":
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            offset = "start"
+            print (opCode + " $"+ rt + offset)
+    elif fAux.getOpCode(string) == "000100":
+        opCode = mappings[fAux.getOpCode(string)]
+        if opCode == "beq":
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            offset = "start"
+            print (opCode + " $"+ rt + " $"+ rs + offset)
 
 
 
