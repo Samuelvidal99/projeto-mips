@@ -8,6 +8,11 @@ def hex_to_binary(str):
     padded_binary = hex_as_binary[2:].zfill(end_length)
     return padded_binary
 
+# funcap que converte uma string de binario para decimal
+# exemplo: 01000 -> 8
+def binaryToDecimal(str):
+    return int(str, 2)
+
 # funcao que retorna o opcode de uma string binaria.
 # exemplo: 00000010000100010100000000100000 -> 000000
 def getOpCode(str):
