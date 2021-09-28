@@ -264,19 +264,15 @@ def identificadorInst(string):
     elif fAux.getOpCode(string) == "000010":
         opCode = mappings[fAux.getOpCode(string)]
         if opCode == "j":
-            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
-            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = "start"
-            print (offset)
+            print (opCode + offset)
     
     # jal offset
     elif fAux.getOpCode(string) == "000011":
         opCode = mappings[fAux.getOpCode(string)]
         if opCode == "jal":
-            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
-            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = "start"
-            print (offset)
+            print (opCode + " " + offset)
 
 
 #add $8, $16, $17
