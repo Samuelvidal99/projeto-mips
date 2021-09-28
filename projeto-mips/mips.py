@@ -84,6 +84,64 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             print (fn + " $"+ rd + " $"+ rs + " $" + rt)
+        # sub $rd $rs $rt
+        elif fn == "sub":
+            rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            print (fn + " $"+ rd + " $"+ rs + " $" + rt)
+        # slt $rd $rs $rt
+        elif fn == "slt":
+            rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            print (fn + " $"+ rd + " $"+ rs + " $" + rt)
+        # and $rd $rs $rt
+        elif fn =="and":
+            rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            print (fn + " $"+ rd + " $"+ rs + " $" + rt)
+        # or $rd $rs $rt
+        elif fn == "or":
+            rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            print (fn + " $"+ rd + " $"+ rs + " $" + rt)
+        # xor $rd $rs $rt
+        elif fn == "xor":
+            rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            print (fn + " $"+ rd + " $"+ rs + " $" + rt)
+        # nor $rd $rs $rt
+        elif fn == "nor":
+            rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            print (fn + " $"+ rd + " $"+ rs + " $" + rt)
+        # mhfi $rd
+        elif fn == "mfhi":
+            rd = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            print (fn + " $"+ rd)
+        # mflo $rd
+        elif fn == "mflo":
+            rd = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            print (fn + " $"+ rd)
+        # addu $rd $rs $rt
+        elif fn == "addu":
+            rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            print (fn + " $"+ rd + " $"+ rs + " $" + rt)
+        # subu $rd $rs $rt
+        elif fn == "subu":
+            rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            print (fn + " $"+ rd + " $"+ rs + " $" + rt)
+
+
 
 
 #add $8, $16, $17
