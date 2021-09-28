@@ -139,7 +139,7 @@ def identificadorInst(string):
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print (fn + " $"+ rd + " $"+ rs + " $" + rt)
+            print (fn + " $"+ rd + " $"+ rs + " $" + rt) 
 
 
 
