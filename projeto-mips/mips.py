@@ -122,11 +122,11 @@ def identificadorInst(string):
             print (fn + " $"+ rd + " $"+ rs + " $" + rt)
         # mhfi $rd
         elif fn == "mfhi":
-            rd = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             print (fn + " $"+ rd)
         # mflo $rd
         elif fn == "mflo":
-            rd = str(fAux.binaryToDecimal(fAux.getRs(binary)))
+            rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             print (fn + " $"+ rd)
         # addu $rd $rs $rt
         elif fn == "addu":
