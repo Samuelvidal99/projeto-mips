@@ -279,6 +279,10 @@ def identificadorInst(string):
             offset = "start"
             return (opCode + " " + offset)
 
+# Abre o arquivo com nome "entrada" contendo os hexadecimais
+# Ignora as quebras de linha no final de cada linha do arquivo
+# Transforma cada hexadecimal em binário
+# Cria um arquivo chamado saída contendo as funções Assembly
 with open('entrada.txt', 'r') as entrada:
     for line in entrada:
         valor = line[:10]
@@ -288,4 +292,3 @@ with open('entrada.txt', 'r') as entrada:
             saida.write('\n')
     entrada.close()
     saida.close()
-    
