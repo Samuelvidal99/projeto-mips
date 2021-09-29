@@ -43,7 +43,7 @@ def identificadorInst(string):
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             sa = str(fAux.binaryToDecimal(fAux.getSh(binary)))
-            print(fn + " $"+ rd + "," + " $" + rt +  ","  + sa)
+            print(fn + " $"+ rd + "," + " $" + rt +  ", "  + sa)
         # sllv $rd, $rt, $rs
         elif fn == "sllv":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
@@ -55,7 +55,7 @@ def identificadorInst(string):
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             sa = str(fAux.binaryToDecimal(fAux.getSh(binary)))
-            print(fn + " $"+ rd + "," + " $" + rt + " ," + sa)
+            print(fn + " $"+ rd + "," + " $" + rt + ", " + sa)
         # srlv $rd, $rt, $rs
         elif fn == "srlv":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
@@ -67,7 +67,7 @@ def identificadorInst(string):
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             sa = str(fAux.binaryToDecimal(fAux.getSh(binary)))
-            print(fn + " $"+ rd + "," + " $" + rt + " ," + sa)
+            print(fn + " $"+ rd + "," + " $" + rt + ", " + sa)
         # srav $rd, $rt, $rs
         elif fn == "srav":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
@@ -199,30 +199,30 @@ def identificadorInst(string):
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
             print (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
-    # bltz $rt, start
+    # bltz $rs, start
     elif fAux.getOpCode(string) == "000001":
         opCode = mappings[fAux.getOpCode(string)]
         if opCode == "bltz":
-            rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
+            rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             offset = "start"
-            print (opCode + " $"+ rt + ", " + offset)
-    # beq $rt, $rs, start
+            print (opCode + " $"+ rs + ", " + offset)
+    # beq $rs, $rt, start
     elif fAux.getOpCode(string) == "000100":
         opCode = mappings[fAux.getOpCode(string)]
         if opCode == "beq":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = "start"
-            print (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
+            print (opCode + " $"+ rs + "," + " $"+ rt + ", " + offset)
     
-    # bne $rt, $rs, start
+    # bne $rs, $rt, start
     elif fAux.getOpCode(string) == "000101":
         opCode = mappings[fAux.getOpCode(string)]
         if opCode == "bne":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = "start"
-            print (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset) 
+            print (opCode + " $"+ rs + "," + " $"+ rt + ", " + offset) 
 
     # lb $rt, offset($rs)
     elif fAux.getOpCode(string) == "100000":
