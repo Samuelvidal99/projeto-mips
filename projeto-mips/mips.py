@@ -8,10 +8,6 @@ with open("mappings.json") as jsonFile:
     mappings = json.load(jsonFile)
     jsonFile.close()
 
-binary = fAux.hex_to_binary("0x02114020")
-#binary = fAux.hex_to_binary("0x02114208")
-print(binary)
-
 # funcao Identificador de Instrucoes que recebe uma string em hexadecimal, 0x02114020,
 # e retorna uma string como uma instrucao assembly
 def identificadorInst(string):
@@ -22,127 +18,127 @@ def identificadorInst(string):
         if fn == "mult":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print(fn + " $"+ rs + "," + " $" + rt)
+            return(fn + " $"+ rs + "," + " $" + rt)
         # multu $rs, $rt
         elif fn == "multu":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print(fn + " $"+ rs + "," + " $" + rt)
+            return(fn + " $"+ rs + "," + " $" + rt)
         # div $rs, $rt
         elif fn == "div":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print(fn + " $"+ rs + "," + " $" + rt)
+            return(fn + " $"+ rs + "," + " $" + rt)
         # divu $rs, $rt
         elif fn == "divu":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print(fn + " $"+ rs + "," +" $" + rt)
+            return(fn + " $"+ rs + "," +" $" + rt)
         # sll $rd, $rt, sa
         elif fn == "sll":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             sa = str(fAux.binaryToDecimal(fAux.getSh(binary)))
-            print(fn + " $"+ rd + "," + " $" + rt +  ", "  + sa)
+            return(fn + " $"+ rd + "," + " $" + rt +  ", "  + sa)
         # sllv $rd, $rt, $rs
         elif fn == "sllv":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print (fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs)
+            return (fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs)
         # srl $rd, $rt, sa
         elif fn == "srl":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             sa = str(fAux.binaryToDecimal(fAux.getSh(binary)))
-            print(fn + " $"+ rd + "," + " $" + rt + ", " + sa)
+            return(fn + " $"+ rd + "," + " $" + rt + ", " + sa)
         # srlv $rd, $rt, $rs
         elif fn == "srlv":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print (fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs)
+            return (fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs)
         # sra $rd, $rt, sa
         elif fn == "sra":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             sa = str(fAux.binaryToDecimal(fAux.getSh(binary)))
-            print(fn + " $"+ rd + "," + " $" + rt + ", " + sa)
+            return(fn + " $"+ rd + "," + " $" + rt + ", " + sa)
         # srav $rd, $rt, $rs
         elif fn == "srav":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print (fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs)
+            return (fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs)
         # jr $rs
         elif fn == "jr":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
-            print (fn + " $"+ rs)
+            return (fn + " $"+ rs)
         # add $rd, $rs, $rt
         elif fn == "add":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
+            return (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
         # sub $rd, $rs, $rt
         elif fn == "sub":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
+            return (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
         # slt $rd, $rs, $rt
         elif fn == "slt":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
+            return (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
         # and $rd, $rs, $rt
         elif fn =="and":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
+            return (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
         # or $rd, $rs, $rt
         elif fn == "or":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
+            return (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
         # xor $rd, $rs, $rt
         elif fn == "xor":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
+            return (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
         # nor $rd, $rs, $rt
         elif fn == "nor":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
+            return (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
         # mhfi $rd
         elif fn == "mfhi":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
-            print (fn + " $"+ rd)
+            return (fn + " $"+ rd)
         # mflo $rd
         elif fn == "mflo":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
-            print (fn + " $"+ rd)
+            return (fn + " $"+ rd)
         # addu $rd, $rs, $rt
         elif fn == "addu":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
+            return (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
         # subu $rd, $rs, $rt
         elif fn == "subu":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            print (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
+            return (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
         # syscall 
         elif fn == "syscall":
-            print (fn)
+            return (fn)
 
     # lui $rt, offset
     if fAux.getOpCode(string) == "001111":
@@ -150,7 +146,7 @@ def identificadorInst(string):
         if opCode == "lui":
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            print (opCode + " $"+ rt + ", " + offset)
+            return (opCode + " $"+ rt + ", " + offset)
     # addi $rt, $rs, offset 
     elif fAux.getOpCode(string) == "001000":
         opCode = mappings[fAux.getOpCode(string)]
@@ -158,7 +154,7 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            print (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
+            return (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
     # addiu $rt, $rs, offset
     elif fAux.getOpCode(string) == "001001":
         opCode = mappings[fAux.getOpCode(string)]
@@ -166,7 +162,7 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            print (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
+            return (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
     # slti $rt, $rs, offset
     elif fAux.getOpCode(string) == "001010":
         opCode = mappings[fAux.getOpCode(string)]
@@ -174,7 +170,7 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            print (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
+            return (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
     # andi $rt, $rs, offset
     elif fAux.getOpCode(string) == "001100":
         opCode = mappings[fAux.getOpCode(string)]
@@ -182,7 +178,7 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            print (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
+            return (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
     # ori $rt, $rs, offset
     elif fAux.getOpCode(string) == "001101":
         opCode = mappings[fAux.getOpCode(string)]
@@ -190,7 +186,7 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            print (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
+            return (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
     # xori $rt, $rs, offset
     elif fAux.getOpCode(string) == "001110":
         opCode = mappings[fAux.getOpCode(string)]
@@ -198,14 +194,14 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            print (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
+            return (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
     # bltz $rs, start
     elif fAux.getOpCode(string) == "000001":
         opCode = mappings[fAux.getOpCode(string)]
         if opCode == "bltz":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             offset = "start"
-            print (opCode + " $"+ rs + ", " + offset)
+            return (opCode + " $"+ rs + ", " + offset)
     # beq $rs, $rt, start
     elif fAux.getOpCode(string) == "000100":
         opCode = mappings[fAux.getOpCode(string)]
@@ -213,7 +209,7 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = "start"
-            print (opCode + " $"+ rs + "," + " $"+ rt + ", " + offset)
+            return (opCode + " $"+ rs + "," + " $"+ rt + ", " + offset)
     
     # bne $rs, $rt, start
     elif fAux.getOpCode(string) == "000101":
@@ -222,7 +218,7 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = "start"
-            print (opCode + " $"+ rs + "," + " $"+ rt + ", " + offset) 
+            return (opCode + " $"+ rs + "," + " $"+ rt + ", " + offset) 
 
     # lb $rt, offset($rs)
     elif fAux.getOpCode(string) == "100000":
@@ -231,7 +227,7 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            print (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )     
+            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )     
 
     # lbu $rt, offset($rs)
     elif fAux.getOpCode(string) == "100100":
@@ -240,7 +236,7 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            print (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )   
+            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )   
 
     # lw $rt, offset($rs)
     elif fAux.getOpCode(string) == "100011":
@@ -249,7 +245,7 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            print (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )  
+            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )  
 
     # sw $rt, offset($rs)
     elif fAux.getOpCode(string) == "101011":
@@ -258,7 +254,7 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            print (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )
+            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )
 
     # sb $rt, offset($rs)
     elif fAux.getOpCode(string) == "101000":
@@ -267,24 +263,29 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            print (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )
+            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )
        
     # j offset
     elif fAux.getOpCode(string) == "000010":
         opCode = mappings[fAux.getOpCode(string)]
         if opCode == "j":
             offset = "start"
-            print (opCode + " " + offset)
+            return (opCode + " " + offset)
     
     # jal offset
     elif fAux.getOpCode(string) == "000011":
         opCode = mappings[fAux.getOpCode(string)]
         if opCode == "jal":
             offset = "start"
-            print (opCode + " " + offset)
+            return (opCode + " " + offset)
 
-
-#add $8, $16, $17
-print(fAux.getRd(binary) + " " + fAux.getRt(binary))
-
-identificadorInst(binary)
+with open('entrada.txt', 'r') as entrada:
+    for line in entrada:
+        valor = line[:10]
+        binary = fAux.hex_to_binary(valor)
+        with open('saida.txt', 'a') as saida:
+            saida.write(str(identificadorInst(binary)))
+            saida.write('\n')
+    entrada.close()
+    saida.close()
+    
