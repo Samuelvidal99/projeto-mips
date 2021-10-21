@@ -24,6 +24,10 @@ REGS[9] = 8
 REGS[10] = 11
 REGS[11] = 4
 REGS[12] = 5
+# registrador hi = $30
+REGS[30] = 0
+# registrador lo = $31
+REGS[31] = 0
 
 def printaREGS(REGS):
     aux1 = "REGS["
@@ -48,52 +52,82 @@ def identificadorInst(string):
         if fn == "mult":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            return(fn + " $"+ rs + "," + " $" + rt)
+            REGS[31] = REGS[int(rs)] * REGS[int(rt)]
+            aux = fn + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS)
+            return(aux)
         # multu $rs, $rt
         elif fn == "multu":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            return(fn + " $"+ rs + "," + " $" + rt)
+            REGS[31] = REGS[int(rs)] * REGS[int(rt)]
+            aux = fn + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS)
+            return(aux)
         # div $rs, $rt
         elif fn == "div":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            return(fn + " $"+ rs + "," + " $" + rt)
+            REGS[30] = REGS[int(rs)] % REGS[int(rt)]
+            REGS[31] = REGS[int(rs)] / REGS[int(rt)]
+            aux2 = fn + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS)
+            return(aux2)
         # divu $rs, $rt
         elif fn == "divu":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            return(fn + " $"+ rs + "," +" $" + rt)
+            REGS[30] = REGS[int(rs)] % REGS[int(rt)]
+            REGS[31] = REGS[int(rs)] / REGS[int(rt)]
+            aux2 = fn + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS)
+            return(aux2)
         # sll $rd, $rt, sa
         elif fn == "sll":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             sa = str(fAux.binaryToDecimal(fAux.getSh(binary)))
-            return(fn + " $"+ rd + "," + " $" + rt +  ", "  + sa)
+            # realizando instrucao
+            aux = REGS[int(rt)] << REGS[int(sa)]
+            REGS[int(rd)] = aux
+            aux2 = fn + " $"+ rd + "," + " $" + rt +  ", "  + sa + "\n" + printaREGS(REGS)
+            return(aux2)
         # sllv $rd, $rt, $rs
         elif fn == "sllv":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            return (fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs)
+            # realizando instrucao
+            aux = REGS[int(rt)] << REGS[int(rs)]
+            REGS[int(rd)] = aux
+            aux2 = fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs + "\n" + printaREGS(REGS)
+            return (aux2)
         # srl $rd, $rt, sa
         elif fn == "srl":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             sa = str(fAux.binaryToDecimal(fAux.getSh(binary)))
-            return(fn + " $"+ rd + "," + " $" + rt + ", " + sa)
+            # realizando instrucao
+            aux = REGS[int(rt)] >> REGS[int(sa)]
+            REGS[int(rd)] = aux
+            aux2 = fn + " $"+ rd + "," + " $" + rt +  ", "  + sa + "\n" + printaREGS(REGS)
+            return(aux2)
         # srlv $rd, $rt, $rs
         elif fn == "srlv":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            return (fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs)
+            # realizando instrucao
+            aux = REGS[int(rt)] >> REGS[int(rs)]
+            REGS[int(rd)] = aux
+            aux2 = fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs + "\n" + printaREGS(REGS)
+            return (aux2)
         # sra $rd, $rt, sa
         elif fn == "sra":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             sa = str(fAux.binaryToDecimal(fAux.getSh(binary)))
-            return(fn + " $"+ rd + "," + " $" + rt + ", " + sa)
+            # realizando instrucao
+            aux = REGS[int(rt)] >> REGS[int(sa)]
+            REGS[int(rd)] = aux
+            aux2 = fn + " $"+ rd + "," + " $" + rt + ", " + sa + "\n" + printaREGS(REGS)
+            return(aux2)
         # srav $rd, $rt, $rs
         elif fn == "srav":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
@@ -129,7 +163,11 @@ def identificadorInst(string):
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            return (fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt)
+            # realizando instrucao
+            aux = int(REGS[int(rs)] < REGS[int(rt)])
+            REGS[int(rd)] = aux
+            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS) 
+            return (aux2)
         # and $rd, $rs, $rt
         elif fn =="and":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
@@ -173,11 +211,19 @@ def identificadorInst(string):
         # mhfi $rd
         elif fn == "mfhi":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
-            return (fn + " $"+ rd)
+            # realizando instrucao
+            aux = REGS[30]
+            REGS[int(rd)] = aux
+            aux2 = fn + " $"+ rd + "\n" + printaREGS(REGS)
+            return (aux2)
         # mflo $rd
         elif fn == "mflo":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
-            return (fn + " $"+ rd)
+            # realizando instrucao
+            aux = REGS[31]
+            REGS[int(rd)] = aux
+            aux2 = fn + " $"+ rd + "\n" + printaREGS(REGS)
+            return (aux2)
         # addu $rd, $rs, $rt
         elif fn == "addu":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
@@ -240,7 +286,11 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            return (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
+            # realizando instrucao
+            aux = int(REGS[int(rs)] < int(offset))
+            REGS[int(rt)] = aux
+            aux2 = opCode + " $"+ rt + "," + " $"+ rs + ", " + offset + "\n" + printaREGS(REGS)
+            return (aux2)
     # andi $rt, $rs, offset
     elif fAux.getOpCode(string) == "001100":
         opCode = mappings[fAux.getOpCode(string)]
@@ -248,7 +298,6 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            #return (opCode + " $"+ rt + "," + " $"+ rs + ", " + offset)
             # realizando instrucao
             aux = REGS[int(rs)] & int(offset)
             REGS[int(rt)] = aux
