@@ -106,7 +106,7 @@ def identificadorInst(string):
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             REGS[30] = REGS[int(rs)] % REGS[int(rt)]
             REGS[31] = REGS[int(rs)] / REGS[int(rt)]
-            aux2 = fn + " $"+ rs + "," + " $" + rt + "\n"  + "\n" + printMEM() + printaREGS(REGS)
+            aux2 = fn + " $"+ rs + "," + " $" + rt + "\n"  +  printMEM() + "\n" + printaREGS(REGS)
             return(aux2)
         # sll $rd, $rt, sa
         elif fn == "sll":
