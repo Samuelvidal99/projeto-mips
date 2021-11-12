@@ -1,3 +1,5 @@
+# Grupo G2: Samuel Santos, Ana Clara Costa, Nicole Pereira, Aldenir Silva.
+
 import funcAux as fAux
 import json
 
@@ -24,10 +26,27 @@ REGS[9] = 8
 REGS[10] = 11
 REGS[11] = 4
 REGS[12] = 5
+# registrador ra = $28
+REGS[28] = 0
+# registrador pc = $29
+REGS[29] = 0
 # registrador hi = $30
 REGS[30] = 0
 # registrador lo = $31
 REGS[31] = 0
+
+# Memoria MEM com 1024 entradas de 8bits, ou seja 128 bytes.
+aux = []
+for x in range(128):
+    aux.append(0x00)
+
+MEM = bytearray(aux)
+
+def printAux(MEM):
+    aux = ""
+    for i in range(128):
+        aux += str(MEM[i]) + ", "
+    return aux 
 
 def printaREGS(REGS):
     aux1 = "REGS["
@@ -40,7 +59,18 @@ def printaREGS(REGS):
         #aux1 += "$" + str(aux2) + "=" + str(i) + ","
         aux2 += 1
     return aux1
-printaREGS(REGS)
+
+def printMEM():
+    aux = 0
+    aux2 = 0
+    for x in range(128):
+        if MEM[x] != 0:
+            aux = MEM[x]
+            aux2 = x
+            break
+    
+    string = 'MEM[{}:{}]'.format(aux2,aux)
+    return string
 
 # funcao Identificador de Instrucoes que recebe uma string em hexadecimal, 0x02114020,
 # e retorna uma string como uma instrucao assembly
@@ -53,14 +83,14 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             REGS[31] = REGS[int(rs)] * REGS[int(rt)]
-            aux = fn + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS)
+            aux = fn + " $"+ rs + "," + " $" + rt  + "\n" + printMEM() + "\n" + printaREGS(REGS)
             return(aux)
         # multu $rs, $rt
         elif fn == "multu":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             REGS[31] = REGS[int(rs)] * REGS[int(rt)]
-            aux = fn + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS)
+            aux = fn + " $"+ rs + "," + " $" + rt  + "\n" + printMEM() + "\n" + printaREGS(REGS)
             return(aux)
         # div $rs, $rt
         elif fn == "div":
@@ -68,7 +98,7 @@ def identificadorInst(string):
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             REGS[30] = REGS[int(rs)] % REGS[int(rt)]
             REGS[31] = REGS[int(rs)] / REGS[int(rt)]
-            aux2 = fn + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS)
+            aux2 = fn + " $"+ rs + "," + " $" + rt  + "\n" + printMEM() + "\n" + printaREGS(REGS)
             return(aux2)
         # divu $rs, $rt
         elif fn == "divu":
@@ -76,7 +106,7 @@ def identificadorInst(string):
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             REGS[30] = REGS[int(rs)] % REGS[int(rt)]
             REGS[31] = REGS[int(rs)] / REGS[int(rt)]
-            aux2 = fn + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS)
+            aux2 = fn + " $"+ rs + "," + " $" + rt + "\n"  + "\n" + printMEM() + printaREGS(REGS)
             return(aux2)
         # sll $rd, $rt, sa
         elif fn == "sll":
@@ -86,7 +116,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rt)] << REGS[int(sa)]
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "," + " $" + rt +  ", "  + sa + "\n" + printaREGS(REGS)
+            aux2 = fn + " $"+ rd + "," + " $" + rt +  ", "  + sa  + "\n" + printMEM() + "\n" + printaREGS(REGS)
             return(aux2)
         # sllv $rd, $rt, $rs
         elif fn == "sllv":
@@ -96,7 +126,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rt)] << REGS[int(rs)]
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs + "\n" + printaREGS(REGS)
+            aux2 = fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs  + "\n" + printMEM() + "\n" + printaREGS(REGS)
             return (aux2)
         # srl $rd, $rt, sa
         elif fn == "srl":
@@ -106,7 +136,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rt)] >> REGS[int(sa)]
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "," + " $" + rt +  ", "  + sa + "\n" + printaREGS(REGS)
+            aux2 = fn + " $"+ rd + "," + " $" + rt +  ", "  + sa  + "\n" + printMEM() + "\n" + printaREGS(REGS)
             return(aux2)
         # srlv $rd, $rt, $rs
         elif fn == "srlv":
@@ -116,7 +146,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rt)] >> REGS[int(rs)]
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs + "\n" + printaREGS(REGS)
+            aux2 = fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs  + "\n" + printMEM() + "\n" + printaREGS(REGS)
             return (aux2)
         # sra $rd, $rt, sa
         elif fn == "sra":
@@ -126,18 +156,21 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rt)] >> REGS[int(sa)]
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "," + " $" + rt + ", " + sa + "\n" + printaREGS(REGS)
+            aux2 = fn + " $"+ rd + "," + " $" + rt + ", " + sa  + "\n" + printMEM() + "\n" + printaREGS(REGS)
             return(aux2)
         # srav $rd, $rt, $rs
         elif fn == "srav":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
-            return (fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs)
+            return (fn + " $"+ rd + "," + " $"+ rt + "," + " $" + rs + "\n" + printMEM() + "\n" + printaREGS(REGS))
         # jr $rs
         elif fn == "jr":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
-            return (fn + " $"+ rs)
+            
+            # registrador pc = rs
+            REGS[29] = int(rs)
+            return (fn + " $"+ rs + "\n" + printMEM() + "\n" + printaREGS(REGS))
         # add $rd, $rs, $rt
         elif fn == "add":
             rd = str(fAux.binaryToDecimal(fAux.getRd(binary)))
@@ -146,7 +179,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rs)] + REGS[int(rt)]
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS) 
+            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printMEM() + "\n" + printaREGS(REGS) 
             return (aux2)
         # sub $rd, $rs, $rt
         elif fn == "sub":
@@ -156,7 +189,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rs)] - REGS[int(rt)]
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS) 
+            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printMEM() + "\n" + printaREGS(REGS) 
             return (aux2)
         # slt $rd, $rs, $rt
         elif fn == "slt":
@@ -166,7 +199,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = int(REGS[int(rs)] < REGS[int(rt)])
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS) 
+            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printMEM() + "\n" + printaREGS(REGS) 
             return (aux2)
         # and $rd, $rs, $rt
         elif fn =="and":
@@ -176,7 +209,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rs)] & REGS[int(rt)]
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS) 
+            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printMEM() + "\n" + printaREGS(REGS) 
             return (aux2)
         # or $rd, $rs, $rt
         elif fn == "or":
@@ -186,7 +219,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rs)] | REGS[int(rt)]
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS) 
+            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printMEM() + "\n" + printaREGS(REGS) 
             return (aux2)
         # xor $rd, $rs, $rt
         elif fn == "xor":
@@ -196,7 +229,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rs)] ^ REGS[int(rt)]
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS) 
+            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printMEM() + "\n" + printaREGS(REGS) 
             return (aux2)
         # nor $rd, $rs, $rt
         elif fn == "nor":
@@ -206,7 +239,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = ~(REGS[int(rs)] | REGS[int(rt)])
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS) 
+            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printMEM() + "\n" + printaREGS(REGS) 
             return (aux2)
         # mhfi $rd
         elif fn == "mfhi":
@@ -214,7 +247,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[30]
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "\n" + printaREGS(REGS)
+            aux2 = fn + " $"+ rd + "\n" + printMEM() + "\n" + printaREGS(REGS)
             return (aux2)
         # mflo $rd
         elif fn == "mflo":
@@ -222,7 +255,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[31]
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "\n" + printaREGS(REGS)
+            aux2 = fn + " $"+ rd + "\n" + printMEM() + "\n" + printaREGS(REGS)
             return (aux2)
         # addu $rd, $rs, $rt
         elif fn == "addu":
@@ -232,7 +265,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rs)] + REGS[int(rt)]
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS) 
+            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printMEM() + "\n" + printaREGS(REGS) 
             return (aux2)
         # subu $rd, $rs, $rt
         elif fn == "subu":
@@ -242,7 +275,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rs)] - REGS[int(rt)]
             REGS[int(rd)] = aux
-            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printaREGS(REGS) 
+            aux2 = fn + " $"+ rd + "," + " $"+ rs + "," + " $" + rt + "\n" + printMEM() + "\n" + printaREGS(REGS) 
             return (aux2)
         # syscall 
         elif fn == "syscall":
@@ -254,7 +287,9 @@ def identificadorInst(string):
         if opCode == "lui":
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            return (opCode + " $"+ rt + ", " + offset)
+
+            REGS[int(rt)] = int(offset) << 16
+            return (opCode + " $"+ rt + ", " + offset + "\n" + printMEM() + "\n" + printaREGS(REGS))
     # addi $rt, $rs, offset 
     elif fAux.getOpCode(string) == "001000":
         opCode = mappings[fAux.getOpCode(string)]
@@ -265,7 +300,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rs)] + int(offset)
             REGS[int(rt)] = aux
-            aux2 = opCode + " $"+ rt + "," + " $"+ rs + ", " + offset + "\n" + printaREGS(REGS) 
+            aux2 = opCode + " $"+ rt + "," + " $"+ rs + ", " + offset + "\n" + printMEM() + "\n" + printaREGS(REGS) 
             return (aux2)
     # addiu $rt, $rs, offset
     elif fAux.getOpCode(string) == "001001":
@@ -277,7 +312,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rs)] + int(offset)
             REGS[int(rt)] = aux
-            aux2 = opCode + " $"+ rt + "," + " $"+ rs + ", " + offset + "\n" + printaREGS(REGS) 
+            aux2 = opCode + " $"+ rt + "," + " $"+ rs + ", " + offset + "\n" + printMEM() + "\n" + printaREGS(REGS) 
             return (aux2)
     # slti $rt, $rs, offset
     elif fAux.getOpCode(string) == "001010":
@@ -289,7 +324,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = int(REGS[int(rs)] < int(offset))
             REGS[int(rt)] = aux
-            aux2 = opCode + " $"+ rt + "," + " $"+ rs + ", " + offset + "\n" + printaREGS(REGS)
+            aux2 = opCode + " $"+ rt + "," + " $"+ rs + ", " + offset + "\n" + printMEM() + "\n" + printaREGS(REGS)
             return (aux2)
     # andi $rt, $rs, offset
     elif fAux.getOpCode(string) == "001100":
@@ -301,7 +336,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rs)] & int(offset)
             REGS[int(rt)] = aux
-            aux2 = opCode + " $"+ rt + "," + " $" + rs + ", " + offset + "\n" + printaREGS(REGS) 
+            aux2 = opCode + " $"+ rt + "," + " $" + rs + ", " + offset + "\n" + printMEM() + "\n" + printaREGS(REGS) 
             return (aux2)
     # ori $rt, $rs, offset
     elif fAux.getOpCode(string) == "001101":
@@ -313,7 +348,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rs)] | int(offset)
             REGS[int(rt)] = aux
-            aux2 = opCode + " $"+ rt + "," + " $" + rs + ", " + offset + "\n" + printaREGS(REGS) 
+            aux2 = opCode + " $"+ rt + "," + " $" + rs + ", " + offset + "\n" + printMEM() + "\n" + printaREGS(REGS) 
             return (aux2)
     # xori $rt, $rs, offset
     elif fAux.getOpCode(string) == "001110":
@@ -325,7 +360,7 @@ def identificadorInst(string):
             # realizando instrucao
             aux = REGS[int(rs)] ^ int(offset)
             REGS[int(rt)] = aux
-            aux2 = opCode + " $"+ rt + "," + " $" + rs + ", " + offset + "\n" + printaREGS(REGS) 
+            aux2 = opCode + " $"+ rt + "," + " $" + rs + ", " + offset + "\n" + printMEM() + "\n" + printaREGS(REGS) 
             return (aux2)
     # bltz $rs, start
     elif fAux.getOpCode(string) == "000001":
@@ -333,7 +368,11 @@ def identificadorInst(string):
         if opCode == "bltz":
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             offset = "start"
-            return (opCode + " $"+ rs + ", " + offset)
+
+            aux = REGS[29]
+            if REGS[int(rs)] < 0:
+                REGS[29] = aux + int(fAux.binaryToDecimal(fAux.getOffset(string)))*4
+            return (opCode + " $"+ rs + ", " + offset + "\n" + printMEM() + "\n" + printaREGS(REGS))
     # beq $rs, $rt, start
     elif fAux.getOpCode(string) == "000100":
         opCode = mappings[fAux.getOpCode(string)]
@@ -341,7 +380,11 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = "start"
-            return (opCode + " $"+ rs + "," + " $"+ rt + ", " + offset)
+
+            aux = REGS[29]
+            if REGS[int(rs)] == REGS[int(rt)]:
+                REGS[29] = aux + int(fAux.binaryToDecimal(fAux.getOffset(string)))*4
+            return (opCode + " $"+ rs + "," + " $"+ rt + ", " + offset + "\n" + printMEM() + "\n" + printaREGS(REGS))
     
     # bne $rs, $rt, start
     elif fAux.getOpCode(string) == "000101":
@@ -350,7 +393,11 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = "start"
-            return (opCode + " $"+ rs + "," + " $"+ rt + ", " + offset) 
+
+            aux = REGS[29]
+            if REGS[int(rs)] != REGS[int(rt)]:
+                REGS[29] = aux + int(fAux.binaryToDecimal(fAux.getOffset(string)))*4
+            return (opCode + " $"+ rs + "," + " $"+ rt + ", " + offset + "\n" + printMEM() + "\n" + printaREGS(REGS)) 
 
     # lb $rt, offset($rs)
     elif fAux.getOpCode(string) == "100000":
@@ -359,7 +406,11 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )     
+
+            aux = int(offset) + REGS[int(rs)]
+            REGS[int(rt)] = MEM[aux]
+
+            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" + "\n" + printMEM() + "\n" + printaREGS(REGS))     
 
     # lbu $rt, offset($rs)
     elif fAux.getOpCode(string) == "100100":
@@ -368,7 +419,11 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )   
+
+            aux = int(offset) + REGS[int(rs)]
+            REGS[int(rt)] = MEM[aux]
+
+            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" + "\n" + printMEM() + "\n" + printaREGS(REGS))   
 
     # lw $rt, offset($rs)
     elif fAux.getOpCode(string) == "100011":
@@ -377,7 +432,13 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )  
+
+            aux = int(offset) + REGS[int(rs)]
+            MEM[aux] = 12
+            REGS[int(rt)] = MEM[aux]
+            
+            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" + "\n" + printMEM() + "\n" + printaREGS(REGS))
+            
 
     # sw $rt, offset($rs)
     elif fAux.getOpCode(string) == "101011":
@@ -386,7 +447,11 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )
+
+            aux = int(offset) + REGS[int(rs)]
+            MEM[aux] = REGS[int(rt)] 
+
+            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" + "\n" + printMEM() + "\n" + printaREGS(REGS))
 
     # sb $rt, offset($rs)
     elif fAux.getOpCode(string) == "101000":
@@ -395,21 +460,35 @@ def identificadorInst(string):
             rs = str(fAux.binaryToDecimal(fAux.getRs(binary)))
             rt = str(fAux.binaryToDecimal(fAux.getRt(binary)))
             offset = str(fAux.binaryToDecimal(fAux.getOffset(binary)))
-            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" )
+
+            aux = int(offset) + REGS[int(rs)]
+            MEM[aux] = REGS[int(rt)] 
+
+            return (opCode + " $"+ rt + ", " + offset + "(" + "$"+ rs + ")" + "\n" + printMEM() + "\n" + printaREGS(REGS))
        
     # j offset
     elif fAux.getOpCode(string) == "000010":
         opCode = mappings[fAux.getOpCode(string)]
         if opCode == "j":
             offset = "start"
-            return (opCode + " " + offset)
-    
+
+            aux = REGS[29]
+            target = fAux.binaryToDecimal(string[6:])
+            REGS[29] = (REGS[29]|(target << 2))
+            return (opCode + " " + offset + "\n" + printMEM() + "\n" + printaREGS(REGS))
+            
     # jal offset
     elif fAux.getOpCode(string) == "000011":
         opCode = mappings[fAux.getOpCode(string)]
         if opCode == "jal":
             offset = "start"
-            return (opCode + " " + offset)
+
+            target = fAux.binaryToDecimal(string[6:])
+            # pc=target<<2
+            REGS[29] = (target<<2)
+            # ra=pc
+            REGS[28] = REGS[29]
+            return (opCode + " " + offset + "\n" + printMEM() + "\n" + printaREGS(REGS))
 
 # Abre o arquivo com nome "entrada" contendo os hexadecimais
 # Ignora as quebras de linha no final de cada linha do arquivo
